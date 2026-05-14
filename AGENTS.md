@@ -4,13 +4,25 @@
 We have moved away from "vibe coding." Every architectural decision and code implementation must be research-backed, documented with evidence, and fully understood by the user before execution.
 
 ## The Workflow
-1. **Research & Proposal:** Before any implementation, the agent provides a technical design write-up (e.g., in `design/TECHNICAL_RATIONALE_*.md`). This must include:
-    - The "Why" behind the choice.
-    - Evidence/links to articles, documentation, or industry standards.
+
+### When a task does NOT come from an existing plan or ticket:
+1. **Story Mapping:** Write the feature as stories in `design/stories/*.md` (these are **temporary, never committed**).
+2. **User Approval:** Present the stories to the user. Wait for explicit approval.
+3. **Push to Trello:** Once approved, write the stories to the backlog via the `djt-trello` skill.
+4. **Delete local story files.** They live in Trello now — not in the repo.
+5. **Ask the user** if they want to move on to the first story before proceeding.
+
+### For every feature/story (with or without an incoming ticket):
+1. **Technical Plan:** Write a `design/TECHNICAL_RATIONALE_*.md` (also **temporary, never committed**) covering:
+    - The "Why" behind each architectural choice.
+    - Evidence/links to docs, articles, or industry standards.
     - Real-world examples of the pattern in use.
-2. **Story Mapping:** Once a proposal is approved, it is broken down into **Stories** (e.g., in `design/stories/*.md`).
-3. **Ticket Management:** Stories are written to the `BACKLOG` using the `djt-trello` skill.
-4. **Collaborative Review:** Code is presented with a detailed explanation. Implementation only proceeds once both Agent and User feel confident and educated on the logic.
+2. **User Verification:** Walk the user through the plan. Implementation does NOT start until the user explicitly approves and says they understand.
+3. **Write the code.** Present changes with explanation. **Do NOT commit.** The user must either say "commit" explicitly or commit themselves.
+
+### What is never committed
+- `design/stories/` — deleted after Trello sync
+- `design/TECHNICAL_RATIONALE_*.md` — deleted after user review and approval
 
 ## Goal
 The User must be able to explain the codebase as if they wrote it themselves. Transparency and education are as important as the code itself.
