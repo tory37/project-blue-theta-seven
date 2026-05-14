@@ -1,11 +1,11 @@
 # Entities (Characters & Upgrades)
 
 ## Characters
-- **Deployment:** Dragged from the "Army Box" to a Spawn Point for a cost.
-- **Movement:** Grid-based movement on the built hexes.
+- **Deployment:** Entities are deployed from the "Army Box" to a Spawn Point by spending `[Value: X]` AP.
+- **Movement:** Grid-based movement on the built hexes. Spending `[Value: 1]` AP moves an entity `[Value: 1]` hex.
 - **Experience:** Can gain EXP from defeating automated tile spawns (e.g., Spiders).
 
-## Upgrades
-- **Types:** Weapons, Armor, Spells.
-- **Attachment:** These make characters better and are played from the deck or inventory.
-- [Placeholder: Defining if upgrades are permanent or temporary].
+## Upgrades & Items
+- **Source:** Upgrades can come from **Cards** (played with AP) or **Merchant Items** (purchased with Coins).
+- **Attachment:** These are applied to characters to improve stats or grant new keywords.
+- **Slots:** Entities may have a limited number of `[Value: 2]` equipment slots.
