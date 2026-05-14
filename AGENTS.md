@@ -5,24 +5,64 @@ We have moved away from "vibe coding." Every architectural decision and code imp
 
 ## The Workflow
 
-### When a task does NOT come from an existing plan or ticket:
-1. **Story Mapping:** Write the feature as stories in `design/stories/*.md` (these are **temporary, never committed**).
-2. **User Approval:** Present the stories to the user. Wait for explicit approval.
-3. **Push to Trello:** Once approved, write the stories to the backlog via the `djt-trello` skill.
-4. **Delete local story files.** They live in Trello now — not in the repo.
-5. **Ask the user** if they want to move on to the first story before proceeding.
+### Phase 1 — Story Definition (skip if starting from an existing Trello card)
 
-### For every feature/story (with or without an incoming ticket):
-1. **Technical Plan:** Write a `design/TECHNICAL_RATIONALE_*.md` (also **temporary, never committed**) covering:
+1. Write the feature as stories in `design/stories/*.md` (temporary — never committed).
+2. Present stories to the user. Wait for explicit approval before touching Trello.
+3. Push approved stories to **BACKLOG** via the Trello API.
+4. Delete the local story files. They live in Trello now.
+5. Ask the user which story to start first.
+
+### Phase 2 — Starting a Story
+
+1. Move the Trello card from its current column to **DOING**.
+2. Create a feature branch: `feat/<short-story-name>`.
+3. Write `design/TECHNICAL_RATIONALE_<name>.md` (temporary — never committed) covering:
     - The "Why" behind each architectural choice.
-    - Evidence/links to docs, articles, or industry standards.
+    - Evidence/links to docs, articles, or standards.
     - Real-world examples of the pattern in use.
-2. **User Verification:** Walk the user through the plan. Implementation does NOT start until the user explicitly approves and says they understand.
-3. **Write the code.** Present changes with explanation. **Do NOT commit.** The user must either say "commit" explicitly or commit themselves.
+4. Walk the user through the rationale. Wait for explicit sign-off.
+5. Delete the rationale file.
+
+### Phase 3 — Implementation
+
+1. Write the code.
+2. Write GUT unit tests alongside the code (see Testing Standards below).
+3. If the feature includes a utility or library, write a `<filename>.md` companion doc next to the code.
+4. Present all changes with explanation. **Do NOT commit.**
+5. Ask the user to run the tests and report results back.
+6. Iterate until tests pass and the user is satisfied.
+
+### Phase 4 — Completion
+
+1. The user says "commit" or commits themselves.
+2. Move the Trello card to **DONE**.
 
 ### What is never committed
 - `design/stories/` — deleted after Trello sync
-- `design/TECHNICAL_RATIONALE_*.md` — deleted after user review and approval
+- `design/TECHNICAL_RATIONALE_*.md` — deleted after user sign-off
+
+---
+
+## Testing Standards (GUT)
+
+All logic must have unit tests written with [GUT (Godot Unit Test)](https://github.com/bitwes/Gut).
+
+**Setup:** Install GUT via Godot's Asset Library (Project > Asset Library > search "GUT"), then enable it in Project > Project Settings > Plugins.
+
+**File layout:**
+```
+tests/
+  unit/
+    test_<system_name>.gd   # mirrors the source file name
+```
+
+**Rules:**
+- Test files are named `test_<source_file>.gd` and extend `GutTest`.
+- One `describe_*` block per public function.
+- Cover: happy path, edge cases, and any values that feel like "what if someone passes 0 here."
+- Do NOT mock the Godot scene tree in unit tests — if a function needs a node, it belongs in an integration test, not here.
+- Agent never runs tests. Always ask the user to run them and report results.
 
 ## Goal
 The User must be able to explain the codebase as if they wrote it themselves. Transparency and education are as important as the code itself.
