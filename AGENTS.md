@@ -1,6 +1,19 @@
-# Agent Directives: Blue Theta Seven
+# Agent Directives & Workflow Mandates
 
-This document outlines the technical constraints, architectural patterns, and coding standards for AI agents working on this project.
+## Core Philosophy
+We have moved away from "vibe coding." Every architectural decision and code implementation must be research-backed, documented with evidence, and fully understood by the user before execution.
+
+## The Workflow
+1. **Research & Proposal:** Before any implementation, the agent provides a technical design write-up (e.g., in `design/TECHNICAL_RATIONALE_*.md`). This must include:
+    - The "Why" behind the choice.
+    - Evidence/links to articles, documentation, or industry standards.
+    - Real-world examples of the pattern in use.
+2. **Story Mapping:** Once a proposal is approved, it is broken down into **Stories** (e.g., in `design/stories/*.md`).
+3. **Ticket Management:** Stories are written to the `BACKLOG` using the `djt-trello` skill.
+4. **Collaborative Review:** Code is presented with a detailed explanation. Implementation only proceeds once both Agent and User feel confident and educated on the logic.
+
+## Goal
+The User must be able to explain the codebase as if they wrote it themselves. Transparency and education are as important as the code itself.
 
 ## 🏗 Architectural Blueprint: "Entity-System"
 We prioritize **Composition over Inheritance**.

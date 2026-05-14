@@ -6,6 +6,10 @@ config/name="Project Blue Theta Seven"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameState="*res://systems/game_state.gd"
+
 [dotnet]
 
 project/assembly_name="Project Blue Theta Seven"
