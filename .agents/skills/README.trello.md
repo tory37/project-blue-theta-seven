@@ -1,0 +1,27 @@
+# Trello Integration
+
+This project uses a Trello-based workflow for managing tasks, bugs, and features directly through the Gemini CLI.
+
+## Available Skills
+
+### 1. Trello Card Management (`/djt-trello`)
+Use this for lightweight management of cards across your Trello board.
+
+- **List/Retrieve**: `/djt-trello [bugs|techdebt|backlog]`
+  - Fetches the top card from the specified column.
+  - Moves the card to **DOING**.
+  - Assigns you to the card.
+- **Add Card**: `/djt-trello add [bugs|techdebt|backlog]`
+  - Creates a new card with standard templates for Acceptance Criteria and Test Plans.
+
+## Configuration
+
+The tools are configured to work with the following Trello setup:
+- **Board ID**: `QSqmJAA7`
+- **MCP Config**: `.agents/mcp/trello.json`
+
+Ensure your local `.env` file contains the required `TRELLO_API_KEY` and `TRELLO_TOKEN`. You can find the specific required keys in `.env.trello.example`.
+
+## Troubleshooting
+
+If the skills are not responding, ensure that the `trello` MCP server is correctly registered in your Gemini CLI configuration and that your Trello token has not expired.

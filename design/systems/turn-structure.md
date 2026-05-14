@@ -2,6 +2,7 @@
 
 ## The Tug-of-War System
 Instead of a fixed action count, the turn economy is a dynamic balance.
+- **First Player** First player is chosen by at random (in game coin flip)
 - **The Marker:** A track shared by both players.
 - **Switching Turns:**
     - If the marker moves on or past [Value: 5] on the opponent's side, the turn switches.
