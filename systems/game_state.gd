@@ -3,10 +3,6 @@ extends Node
 ## Global Game State Manager (Autoload)
 ## Manages the Tug-of-War economy and player resources.
 
-signal player_switched(new_player_index: int)
-signal marker_moved(new_value: float)
-signal resources_updated(player_index: int, ap: int, coins: int)
-
 enum Player { ONE, TWO }
 
 @export var max_marker_value: float = 5.0
@@ -32,15 +28,15 @@ func spend_ap(amount: int):
 	var move_direction = 1.0 if active_player == Player.ONE else -1.0
 	marker_position += (amount * move_direction)
 	
-	marker_moved.emit(marker_position)
-	resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
+	SignalBus.marker_moved.emit(marker_position)
+	SignalBus.resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
 	
 	if abs(marker_position) >= max_marker_value:
 		switch_turn()
 
 func add_coins(player: Player, amount: int):
 	player_resources[player]["coins"] += amount
-	resources_updated.emit(player, player_resources[player]["ap"], player_resources[player]["coins"])
+	SignalBus.resources_updated.emit(player, player_resources[player]["ap"], player_resources[player]["coins"])
 
 func switch_turn():
 	# Restock merchant would happen here (emitted via signal or called directly)
@@ -61,8 +57,8 @@ func switch_turn():
 	# Design says "A track shared by both players."
 	# If Player 1 pushed it to +6, it starts at +6 for Player 2.
 	
-	player_switched.emit(active_player)
-	resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
+	SignalBus.player_switched.emit(active_player)
+	SignalBus.resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
 
 func end_turn_manual():
 	# Can only end if marker is on opponent's side
