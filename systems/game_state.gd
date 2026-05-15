@@ -1,0 +1,73 @@
+extends Node
+
+## Global Game State Manager (Autoload)
+## Manages the Tug-of-War economy and player resources.
+
+signal player_switched(new_player_index: int)
+signal marker_moved(new_value: float)
+signal resources_updated(player_index: int, ap: int, coins: int)
+
+enum Player { ONE, TWO }
+
+@export var max_marker_value: float = 5.0
+@export var base_income: int = 2
+
+var active_player: Player = Player.ONE
+var marker_position: float = 0.0 # Positive for Player 2, Negative for Player 1 (Tug of War)
+var player_resources = {
+	Player.ONE: {"ap": 1, "coins": 0},
+	Player.TWO: {"ap": 0, "coins": 0}
+}
+
+func _ready():
+	# Initial setup as per MVP plan
+	pass
+
+## Move the marker towards the opponent's side.
+func spend_ap(amount: int):
+	player_resources[active_player]["ap"] -= amount
+	
+	# Moving marker: Player 1 moves it towards positive (Player 2 side)
+	# Player 2 moves it towards negative (Player 1 side)
+	var move_direction = 1.0 if active_player == Player.ONE else -1.0
+	marker_position += (amount * move_direction)
+	
+	marker_moved.emit(marker_position)
+	resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
+	
+	if abs(marker_position) >= max_marker_value:
+		switch_turn()
+
+func add_coins(player: Player, amount: int):
+	player_resources[player]["coins"] += amount
+	resources_updated.emit(player, player_resources[player]["ap"], player_resources[player]["coins"])
+
+func switch_turn():
+	# Restock merchant would happen here (emitted via signal or called directly)
+	
+	active_player = Player.TWO if active_player == Player.ONE else Player.ONE
+	
+	# Income phase
+	add_coins(active_player, base_income)
+	
+	# Marker bonus/reset logic as per design
+	# "The opponent then receives those points plus a base amount."
+	# For MVP: We convert the marker position into starting AP for the new player.
+	var starting_ap = abs(marker_position)
+	player_resources[active_player]["ap"] = int(starting_ap)
+	
+	# Reset marker for the new turn perspective? 
+	# Or keep it as a continuous track? 
+	# Design says "A track shared by both players."
+	# If Player 1 pushed it to +6, it starts at +6 for Player 2.
+	
+	player_switched.emit(active_player)
+	resources_updated.emit(active_player, player_resources[active_player]["ap"], player_resources[active_player]["coins"])
+
+func end_turn_manual():
+	# Can only end if marker is on opponent's side
+	var on_opponent_side = (active_player == Player.ONE and marker_position > 0) or \
+						   (active_player == Player.TWO and marker_position < 0)
+	
+	if on_opponent_side:
+		switch_turn()

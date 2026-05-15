@@ -2,7 +2,7 @@
 
 ## The Loadout
 Players enter the game with a pre-built selection:
-- **Main Deck:** A collection of X cards.
+- **Main Deck:** A collection of `[Value: 40]` cards.
 - **Army Box:** A specific set of character entities ready for deployment.
 
 ## Card Types

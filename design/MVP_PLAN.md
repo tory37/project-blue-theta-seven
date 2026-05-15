@@ -1,0 +1,76 @@
+# MVP Prototype Plan: "Blue Theta Seven"
+
+This plan outlines the requirements for a functional prototype to test the core "Tug-of-War" and "Merchant" mechanics.
+
+## 1. Core Objectives
+
+- Validate the **Marker/AP** turn-switching loop.
+- Test the friction between **AP** (tactical) and **Coins** (strategic).
+- Verify the "living board" feel of placing hex tiles.
+
+## 2. Technical Stack
+
+- **Engine:** Godot 4.x (as per project structure).
+- **Language:** GDScript.
+- **Visuals:** Simple 2D sprites (Hexagons, Circles for Entities) and a clean UI.
+
+## 3. Scope of MVP
+
+### Phase 1: The Foundation
+
+- **Hex Grid:** A simple coordinate system (Axial or Offset) for tile placement.
+- **The Marker UI:** A horizontal slider representing the Tug-of-War track.
+- **Turn Logic:** A system to track Active Player, AP, and Coins.
+
+### Phase 2: Action Economy
+
+- **AP Spending:**
+  - `Move`: Click entity -> Click adjacent hex (-1 AP).
+  - `Play Tile`: Select tile card -> Click empty adjacent slot (-X AP).
+- **The Turn Switch:**
+  - Automatic switch when Marker reaches `[Value: 5]`.
+  - Manual "End Turn" button (only active if Marker is on opponent's side).
+
+### Phase 3: The Merchant & Items
+
+- **Market Row:** A UI panel showing 3 random "Item" buttons.
+- **Currency:** Players gain `[Value: 2]` coins at start of turn.
+- **Equipping:** Clicking a Merchant item deducts coins and adds a stat buff (e.g., +1 Attack) to a selected entity.
+
+### Phase 4: Basic Combat
+
+- **Resolution:** A simple "Roll vs Defense" logic.
+- **Visuals:** Floating combat text (e.g., "-2 HP").
+
+## 4. Visualizing the System (Mermaid)
+
+```mermaid
+graph TD
+    subgraph "Turn Start"
+        Start[New Turn] --> Income[+2 Coins]
+        Income --> MarkerCheck[Marker Reset/Adjust]
+    end
+
+    subgraph "Active Phase (Spend AP)"
+        MarkerCheck --> PlayerAction{Player Action}
+        PlayerAction -- Play Card --> MarkerRight[Move Marker Right]
+        PlayerAction -- Move/Attack --> MarkerRight
+        PlayerAction -- Buy Item --> CoinSpend[Spend Coins]
+        CoinSpend --> PlayerAction
+        MarkerRight --> Threshold{Marker > 5?}
+    end
+
+    subgraph "Turn End"
+        Threshold -- Yes --> Switch[Switch Active Player]
+        Threshold -- No --> PlayerAction
+        ManualEnd[Manual End Turn] -- Only if Marker > 0 --> Switch
+        Switch --> Restock[Restock Merchant]
+        Restock --> Start
+    end
+```
+
+## 5. Success Criteria
+
+- Can a player place 3 tiles and an entity before the turn switches?
+- Does saving coins for a Merchant item feel like a meaningful choice compared to spending AP?
+- Is the Tug-of-War visual intuitive for tracking "whose turn is it?"
