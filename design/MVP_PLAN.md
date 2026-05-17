@@ -1,4 +1,4 @@
-# MVP Prototype Plan: "Blue Theta Seven"
+# MVP Prototype Plan: "Project N1B"
 
 This plan outlines the requirements for a functional prototype to test the core "Tug-of-War" and "Merchant" mechanics.
 
