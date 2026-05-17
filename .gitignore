@@ -8,3 +8,4 @@ design/TECHNICAL_RATIONALE_*.md
 
 # Godot editor cache — generated, never commit
 .godot/
+.claude/
