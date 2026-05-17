@@ -3,4 +3,4 @@
 
 # Godot editor cache — generated, never commit
 .godot/
-.claude/settings.json
+.claude/settings*.json
