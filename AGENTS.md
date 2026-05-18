@@ -159,3 +159,4 @@ func _apply_spend_ap(amount: int) -> void:
 
 - No hard-coded strings for paths; use exported variables or resource references.
 - No large "God Scripts" that handle multiple unrelated systems.
+- **NEVER commit without the user explicitly saying "commit" in the current message.** Prior permission earlier in the conversation does not carry forward. Even if the user said "go ahead and commit" ten messages ago, always stop, present the staged changes, and ask for fresh confirmation before running `git commit`.
