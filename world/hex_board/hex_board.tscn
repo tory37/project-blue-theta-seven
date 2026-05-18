@@ -5,8 +5,5 @@
 
 [node name="HexBoard" type="Node3D" unique_id=1040679664]
 script = ExtResource("1")
-hex_size = null
-board_width_radius = null
-board_height_radius = null
-orientation = null
+orientation = 1
 hex_tile_scene = ExtResource("2_388vy")
