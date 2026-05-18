@@ -23,24 +23,21 @@ When the user makes a request that is outside the scope of the current feature o
 
 ## The Workflow
 
-### Phase 1 — Story Definition (skip if starting from an existing Trello card)
+### Phase 1 — Story Definition
 
-1. Write the feature as stories in `design/stories/*.md` (temporary — never committed).
-2. Present stories to the user. Wait for explicit approval before touching Trello.
-3. Push approved stories to **BACKLOG** via the Trello API.
-4. Delete the local story files. They live in Trello now.
-5. Ask the user which story to start first.
+1. Write the feature as stories in `design/stories/*.md` (temporary).
+2. Present stories to the user. Wait for explicit approval.
+3. Once approved, the user decides which story to start first.
 
 ### Phase 2 — Starting a Story
 
-1. Move the Trello card from its current column to **DOING**.
-2. Create a feature branch: `feat/<short-story-name>`.
-3. Write `design/TECHNICAL_RATIONALE_<name>.md` (temporary — never committed) covering:
+1. Create a feature branch: `feat/<short-story-name>`.
+2. Write `design/TECHNICAL_RATIONALE_<name>.md` (temporary — never committed) covering:
     - The "Why" behind each architectural choice.
     - Evidence/links to docs, articles, or standards.
     - Real-world examples of the pattern in use.
-4. Walk the user through the rationale. Wait for explicit sign-off.
-5. Delete the rationale file.
+3. Walk the user through the rationale. Wait for explicit sign-off.
+4. Delete the rationale file.
 
 ### Phase 3 — Implementation
 
@@ -54,11 +51,11 @@ When the user makes a request that is outside the scope of the current feature o
 ### Phase 4 — Completion
 
 1. The user says "commit" or commits themselves.
-2. Move the Trello card to **DONE**.
+2. Mark the story as complete and move to the next one.
 
 ### What is never committed
 
-- `design/stories/` — deleted after Trello sync
+- `design/stories/` — (optional: if using a local-only tracking method)
 - `design/TECHNICAL_RATIONALE_*.md` — deleted after user sign-off
 
 ---
