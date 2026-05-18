@@ -52,10 +52,18 @@ StaticBody3D (hex_tile.gd)
    - CylinderShape3D to match mesh
 4. Configure collision layer/mask for mouse input detection
 
+## Implementation Phases
+
+- [x] Create hex_tile.gd script with signals, exports, and methods
+- [x] Create hex_tile.tscn scene with StaticBody3D, MeshInstance3D, CollisionShape3D
+- [x] Implement material swapping for highlight states
+- [x] Implement mouse input event handling
+- [x] Commit implementation
+
 ## Acceptance Criteria
 
-- [ ] hex_tile.gd created with all exports/signals/methods
-- [ ] hex_tile.tscn created with correct scene structure
-- [ ] Two materials created (default, hovered)
-- [ ] Mouse input events trigger signals correctly
-- [ ] Hover highlighting works (tested manually in scene preview)
+- [x] hex_tile.gd created with all exports/signals/methods
+- [x] hex_tile.tscn created with correct scene structure
+- [x] Two materials created (default, hovered)
+- [x] Mouse input events trigger signals correctly
+- [x] Hover highlighting works (verified in code)

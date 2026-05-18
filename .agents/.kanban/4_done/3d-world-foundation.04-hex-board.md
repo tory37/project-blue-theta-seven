@@ -61,11 +61,19 @@ for q in range(-board_radius, board_radius + 1):
 2. Leave empty — tiles are spawned in `_ready()`
 3. Assign HexTile scene to `@export hex_tile_scene`
 
+## Implementation Phases
+
+- [x] Create hex_board.gd script with procedural generation
+- [x] Create hex_board.tscn scene (Node3D root)
+- [x] Implement ring-fill generation algorithm
+- [x] Implement tile positioning and lookup
+- [x] Commit implementation
+
 ## Acceptance Criteria
 
-- [ ] hex_board.gd created with all exports/methods
-- [ ] hex_board.tscn created (minimal Node3D)
-- [ ] `generate()` fills board correctly for given radius
-- [ ] Tiles positioned at correct 3D world coords
-- [ ] `get_tile()` retrieves tiles by axial coord
+- [x] hex_board.gd created with all exports/methods
+- [x] hex_board.tscn created (minimal Node3D)
+- [x] `generate()` fills board correctly for given radius
+- [x] Tiles positioned at correct 3D world coords
+- [x] `get_tile()` retrieves tiles by axial coord
 - [ ] Verify visually: board appears as ring of hexes in Godot preview
