@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GDScript: Launch Main Scene",
+            "type": "godot",
+            "request": "launch",
+            "project": "${workspaceFolder}",
+            "address": "127.0.0.1",
+            "port": 6005,
+            "debugServer": 6005
+        },
+        {
+            "name": "GDScript: Launch Editor",
+            "type": "godot",
+            "request": "launch",
+            "project": "${workspaceFolder}",
+            "additionalOptions": "--editor"
+        },
+        {
+            "name": "GDScript: Run GUT Tests (All)",
+            "type": "godot",
+            "request": "launch",
+            "project": "${workspaceFolder}",
+            "address": "127.0.0.1",
+            "port": 6005,
+            "debugServer": 6005,
+            "additionalOptions": "-s res://addons/gut/gut_cmdln.gd"
+        },
+        {
+            "name": "GDScript: Run GUT Tests (Unit Only)",
+            "type": "godot",
+            "request": "launch",
+            "project": "${workspaceFolder}",
+            "address": "127.0.0.1",
+            "port": 6005,
+            "debugServer": 6005,
+            "additionalOptions": "-s res://addons/gut/gut_cmdln.gd -gdir=res://tests/unit"
+        }
+    ]
+}

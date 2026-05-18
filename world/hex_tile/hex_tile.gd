@@ -2,7 +2,6 @@ extends StaticBody3D
 
 @export var axial_coord: Vector2i = Vector2i.ZERO
 
-signal tile_clicked(axial: Vector2i)
 signal tile_hovered(axial: Vector2i)
 signal tile_unhovered(axial: Vector2i)
 
@@ -30,9 +29,9 @@ func set_highlighted(on: bool) -> void:
 		_mesh_instance.material_override = _default_material
 
 
-func _input_event(camera: Node, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
+func _input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		tile_clicked.emit(axial_coord)
+		SignalBus.tile_clicked.emit(axial_coord)
 
 
 func _on_mouse_enter() -> void:

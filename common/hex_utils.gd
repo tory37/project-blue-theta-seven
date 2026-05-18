@@ -3,8 +3,6 @@ extends Node
 ## Static utility for axial hex grid math.
 ## See common/README.md for coordinate system overview and usage examples.
 
-enum HexOrientation { POINTY_TOP, FLAT_TOP }
-
 ## Clockwise neighbor offsets in axial (q, r) space, starting from the right.
 const DIRECTIONS: Array[Vector2i] = [
 	Vector2i(1, 0),
@@ -14,6 +12,67 @@ const DIRECTIONS: Array[Vector2i] = [
 	Vector2i(-1, 1),
 	Vector2i(0, 1),
 ]
+
+
+## https://www.redblobgames.com/grids/hexagons/#conversions-offset
+## Pointy Top - oddr
+static func axial_to_oddr(q: int, r: int) -> Vector2i:
+	var parity: int = r & 1
+	var col: int = q + (r - parity) / 2
+	var row: int = r
+	return Vector2i(col, row)
+
+
+static func oddr_to_axial(x: int, y: int) -> Vector2i:
+	var parity: int = y & 1
+	var q: int = x - (y - parity) / 2
+	var r: int = y
+	return Vector2i(q, r)
+
+
+## Point Typ - evenr
+static func axial_to_evenr(q: int, r: int) -> Vector2i:
+	var parity: int = r & 1
+	var col: int = q + (r + parity) / 2
+	var row: int = r
+	return Vector2i(col, row)
+
+
+static func evenr_to_axial(x: int, y: int) -> Vector2i:
+	var parity: int = y & 1
+	var q: int = x - (y + parity) / 2
+	var r: int = y
+	return Vector2i(q, r)
+
+
+## Flat Top - evenq
+static func axial_to_evenq(q: int, r: int) -> Vector2i:
+	var parity: int = q & 1
+	var col: int = q
+	var row: int = r + (q + parity) / 2
+	return Vector2i(col, row)
+
+
+static func evenq_to_axial(x: int, y: int) -> Vector2i:
+	var parity = x & 1
+	var q = x
+	var r = y - (x + parity) / 2
+	return Vector2i(q, r)
+
+
+## Flat Top - oddq
+static func axial_to_oddq(q: int, r: int) -> Vector2i:
+	var parity: int = q & 1
+	var col: int = q
+	var row: int = r + (q - parity) / 2
+	return Vector2i(col, row)
+
+
+static func oddq_to_axial(x: int, y: int) -> Vector2i:
+	var parity: int = x & 1
+	var q: int = x
+	var r: int = y - (x - parity) / 2
+	return Vector2i(q, r)
 
 
 ## Converts a pointy-top axial hex coordinate to a 3D world position (XZ plane).
@@ -32,7 +91,12 @@ static func axial_to_world_flat_top(q: int, r: int, size: float) -> Vector3:
 
 
 ## Dispatches to the named variant based on orientation.
-static func axial_to_world(q: int, r: int, size: float, orientation: HexOrientation) -> Vector3:
+static func axial_to_world(
+		q: int,
+		r: int,
+		size: float,
+		orientation: HexOrientation.Type,
+) -> Vector3:
 	if orientation == HexOrientation.FLAT_TOP:
 		return axial_to_world_flat_top(q, r, size)
 	return axial_to_world_pointy_top(q, r, size)
@@ -54,7 +118,11 @@ static func world_to_axial_flat_top(point: Vector3, size: float) -> Vector2i:
 
 
 ## Dispatches to the named variant based on orientation.
-static func world_to_axial(point: Vector3, size: float, orientation: HexOrientation) -> Vector2i:
+static func world_to_axial(
+		point: Vector3,
+		size: float,
+		orientation: HexOrientation.Type,
+) -> Vector2i:
 	if orientation == HexOrientation.FLAT_TOP:
 		return world_to_axial_flat_top(point, size)
 	return world_to_axial_pointy_top(point, size)

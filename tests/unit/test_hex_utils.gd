@@ -56,14 +56,14 @@ func test_axial_to_world_flat_top_round_trip() -> void:
 func test_axial_to_world_dispatcher_pointy_top() -> void:
 	var coord := Vector2i(2, -1)
 	assert_eq(
-		HexUtils.axial_to_world(coord.x, coord.y, SIZE, HexUtils.HexOrientation.POINTY_TOP),
+		HexUtils.axial_to_world(coord.x, coord.y, SIZE, HexOrientation.POINTY_TOP),
 		HexUtils.axial_to_world_pointy_top(coord.x, coord.y, SIZE)
 	)
 
 func test_axial_to_world_dispatcher_flat_top() -> void:
 	var coord := Vector2i(2, -1)
 	assert_eq(
-		HexUtils.axial_to_world(coord.x, coord.y, SIZE, HexUtils.HexOrientation.FLAT_TOP),
+		HexUtils.axial_to_world(coord.x, coord.y, SIZE, HexOrientation.FLAT_TOP),
 		HexUtils.axial_to_world_flat_top(coord.x, coord.y, SIZE)
 	)
 
@@ -101,14 +101,14 @@ func test_world_to_axial_flat_top_snaps_nearby_to_nearest_hex() -> void:
 func test_world_to_axial_dispatcher_pointy_top() -> void:
 	var point := Vector3(2.0, 0.0, 1.0)
 	assert_eq(
-		HexUtils.world_to_axial(point, SIZE, HexUtils.HexOrientation.POINTY_TOP),
+		HexUtils.world_to_axial(point, SIZE, HexOrientation.POINTY_TOP),
 		HexUtils.world_to_axial_pointy_top(point, SIZE)
 	)
 
 func test_world_to_axial_dispatcher_flat_top() -> void:
 	var point := Vector3(2.0, 0.0, 1.0)
 	assert_eq(
-		HexUtils.world_to_axial(point, SIZE, HexUtils.HexOrientation.FLAT_TOP),
+		HexUtils.world_to_axial(point, SIZE, HexOrientation.FLAT_TOP),
 		HexUtils.world_to_axial_flat_top(point, SIZE)
 	)
 

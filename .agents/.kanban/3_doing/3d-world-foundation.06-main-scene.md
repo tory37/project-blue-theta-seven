@@ -27,6 +27,7 @@ Node3D (main.gd)
 ## Camera Setup
 
 **Camera3D:**
+
 - Position: `Vector3(0, 9, 7)`
 - Rotation (degrees): `Vector3(-52, 0, 0)`
 - This provides an angled isometric-ish view:
@@ -37,6 +38,7 @@ Node3D (main.gd)
 ## Light Setup
 
 **DirectionalLight3D:**
+
 - Rotation: angle shadows to be readable (recommend similar to camera angle)
 - Energy: reasonable default
 - Direction: so shadows fall away from camera, not towards it
@@ -63,9 +65,14 @@ Optional: Add debug output for loaded components.
    - Ensure `hex_tile_scene` export is assigned
 5. Instance `table.tscn` as child
 
+## Implementation Phases
+
+- [x] Phase 1: Write `main.gd` script
+- [ ] Phase 2: User assembles `main.tscn` in Godot Editor (see `design/scenes/main.md`)
+
 ## Acceptance Criteria
 
-- [ ] main.gd created with minimal _ready() logic
+- [x] main.gd created with minimal _ready() logic
 - [ ] main.tscn created with correct structure
 - [ ] Camera positioned at (0, 9, 7) with rotation (-52, 0, 0)
 - [ ] DirectionalLight3D added and shadows readable

@@ -47,7 +47,7 @@ When the user makes a request that is outside the scope of the current feature o
 4. If the feature includes a utility or library, write a `<filename>.md` companion doc next to the code.
 5. Present all changes with explanation. **Do NOT commit.**
 6. Ask the user to run the tests and report results back.
-7. Iterate until tests pass and the user is satisfied.
+7. Iterate until tests pass, and the user is satisfied.
 
 ### Phase 4 — Completion
 
