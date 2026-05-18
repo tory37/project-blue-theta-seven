@@ -19,16 +19,14 @@ func _ready() -> void:
 	generate()
 
 
+## TODO: Pointy top does not generate a perfectly symmetric board because of the way the hexes are staggered. 
 func generate() -> void:
 	_tiles.clear()
 	for col in range(-board_width_radius, board_width_radius + 1):
-		# In evenr (pointy-top), odd columns sit a half-hex lower, leaving the bottom
-		# edge ragged. Extend by one row and drop odd-column slots to square it up.
 		var row_start: int = -board_height_radius
-		if orientation == HexOrientation.POINTY_TOP:
-			row_start = -board_height_radius - 1
+		row_start = -board_height_radius - 1
 		for row in range(row_start, board_height_radius + 1):
-			if orientation == HexOrientation.POINTY_TOP and row == row_start and col % 2 != 0:
+			if orientation == HexOrientation.FLAT_TOP and row == row_start and col % 2 != 0:
 				continue
 			_spawn_tile(col, row)
 
