@@ -2,6 +2,48 @@ extends GutTest
 
 const SIZE := 1.0
 
+const OFFSET_ROUND_TRIP_COORDS: Array[Vector2i] = [
+	Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1),
+	Vector2i(-1, 0), Vector2i(0, -1), Vector2i(3, -2),
+	Vector2i(-3, 2), Vector2i(4, 4), Vector2i(-4, -4),
+]
+
+
+# --- oddr_to_axial / axial_to_oddr ---
+
+func test_oddr_round_trip() -> void:
+	for offset: Vector2i in OFFSET_ROUND_TRIP_COORDS:
+		var axial: Vector2i = HexUtils.oddr_to_axial(offset.x, offset.y)
+		var back: Vector2i = HexUtils.axial_to_oddr(axial.x, axial.y)
+		assert_eq(back, offset, "oddr round trip failed for %s" % str(offset))
+
+
+# --- evenr_to_axial / axial_to_evenr ---
+
+func test_evenr_round_trip() -> void:
+	for offset: Vector2i in OFFSET_ROUND_TRIP_COORDS:
+		var axial: Vector2i = HexUtils.evenr_to_axial(offset.x, offset.y)
+		var back: Vector2i = HexUtils.axial_to_evenr(axial.x, axial.y)
+		assert_eq(back, offset, "evenr round trip failed for %s" % str(offset))
+
+
+# --- evenq_to_axial / axial_to_evenq ---
+
+func test_evenq_round_trip() -> void:
+	for offset: Vector2i in OFFSET_ROUND_TRIP_COORDS:
+		var axial: Vector2i = HexUtils.evenq_to_axial(offset.x, offset.y)
+		var back: Vector2i = HexUtils.axial_to_evenq(axial.x, axial.y)
+		assert_eq(back, offset, "evenq round trip failed for %s" % str(offset))
+
+
+# --- oddq_to_axial / axial_to_oddq ---
+
+func test_oddq_round_trip() -> void:
+	for offset: Vector2i in OFFSET_ROUND_TRIP_COORDS:
+		var axial: Vector2i = HexUtils.oddq_to_axial(offset.x, offset.y)
+		var back: Vector2i = HexUtils.axial_to_oddq(axial.x, axial.y)
+		assert_eq(back, offset, "oddq round trip failed for %s" % str(offset))
+
 
 # --- axial_to_world_pointy_top ---
 

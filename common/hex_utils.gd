@@ -23,10 +23,10 @@ static func axial_to_oddr(q: int, r: int) -> Vector2i:
 	return Vector2i(col, row)
 
 
-static func oddr_to_axial(x: int, y: int) -> Vector2i:
-	var parity: int = y & 1
-	var q: int = x - (y - parity) / 2
-	var r: int = y
+static func oddr_to_axial(col: int, row: int) -> Vector2i:
+	var parity: int = row & 1
+	var q: int = col - (row - parity) / 2
+	var r: int = row
 	return Vector2i(q, r)
 
 
@@ -38,10 +38,10 @@ static func axial_to_evenr(q: int, r: int) -> Vector2i:
 	return Vector2i(col, row)
 
 
-static func evenr_to_axial(x: int, y: int) -> Vector2i:
-	var parity: int = y & 1
-	var q: int = x - (y + parity) / 2
-	var r: int = y
+static func evenr_to_axial(col: int, row: int) -> Vector2i:
+	var parity: int = row & 1
+	var q: int = col - (row + parity) / 2
+	var r: int = row
 	return Vector2i(q, r)
 
 
@@ -53,10 +53,10 @@ static func axial_to_evenq(q: int, r: int) -> Vector2i:
 	return Vector2i(col, row)
 
 
-static func evenq_to_axial(x: int, y: int) -> Vector2i:
-	var parity = x & 1
-	var q = x
-	var r = y - (x + parity) / 2
+static func evenq_to_axial(col: int, row: int) -> Vector2i:
+	var parity: int = col & 1
+	var q: int = col
+	var r: int = row - (col + parity) / 2
 	return Vector2i(q, r)
 
 
@@ -68,10 +68,10 @@ static func axial_to_oddq(q: int, r: int) -> Vector2i:
 	return Vector2i(col, row)
 
 
-static func oddq_to_axial(x: int, y: int) -> Vector2i:
-	var parity: int = x & 1
-	var q: int = x
-	var r: int = y - (x - parity) / 2
+static func oddq_to_axial(col: int, row: int) -> Vector2i:
+	var parity: int = col & 1
+	var q: int = col
+	var r: int = row - (col - parity) / 2
 	return Vector2i(q, r)
 
 

@@ -3,7 +3,6 @@ extends Node3D
 class_name HexBoard
 
 @export var hex_size: float = 1.0
-## TODO: Handle having matching sides.  We need to use odd number width and heights, and force it
 @export var board_width_radius: int = 5
 @export var board_height_radius: int = 3
 @export var orientation: HexOrientation.Type = HexOrientation.POINTY_TOP
@@ -23,32 +22,32 @@ func _ready() -> void:
 
 func generate() -> void:
 	_tiles.clear()
-	for x in range(-board_width_radius, board_width_radius + 1):
-		for y in range(-board_height_radius, board_height_radius + 1):
-			_spawn_tile(x, y)
+	for col in range(-board_width_radius, board_width_radius + 1):
+		for row in range(-board_height_radius, board_height_radius + 1):
+			_spawn_tile(col, row)
 
 
 func get_tile(axial: Vector2i) -> Node:
 	return _tiles.get(axial, null)
 
 
-func _spawn_tile(x: int, y: int) -> void:
+func _spawn_tile(col: int, row: int) -> void:
 	var tile: Node = hex_tile_scene.instantiate()
 
-	var axial_coord: Vector2i
+	var axial: Vector2i
 	if orientation == HexOrientation.POINTY_TOP:
-		axial_coord = HexUtils.evenr_to_axial(x, y)
+		axial = HexUtils.evenr_to_axial(col, row)
 	else:
-		axial_coord = HexUtils.oddq_to_axial(x, y)
+		axial = HexUtils.evenq_to_axial(col, row)
 
-	var q = axial_coord.x
-	var r = axial_coord.y
+	var q = axial.x
+	var r = axial.y
 	var world_pos: Vector3 = HexUtils.axial_to_world(q, r, hex_size, orientation)
 	tile.position = world_pos
 
 	if orientation == HexOrientation.FLAT_TOP:
 		tile.rotation = FLAT_TOP_ROTATION
 
-	tile.axial_coord = Vector2i(q, r)
+	tile.axial_coord = axial
 	add_child(tile)
-	_tiles[Vector2i(q, r)] = tile
+	_tiles[axial] = tile
