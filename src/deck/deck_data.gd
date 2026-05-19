@@ -1,7 +1,7 @@
-class_name Deck
+class_name DeckData
 extends Resource
 
-@export var cards: Array[Card] = []
+@export var cards: Array[CardData] = []
 
 func _init():
 	cards = []

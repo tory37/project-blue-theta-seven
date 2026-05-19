@@ -14,6 +14,10 @@ signal resources_updated(player_index: int, currency: int)
 @warning_ignore("unused_signal")
 signal tile_clicked(axial: Vector2i)
 
+# Cards
+@warning_ignore("unused_signal")
+signal deck_clicked()
+
 # Errors
 @warning_ignore("unused_signal")
 signal ap_spend_failed(player_index: int)
