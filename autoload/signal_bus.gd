@@ -16,7 +16,7 @@ signal tile_clicked(axial: Vector2i)
 
 # Cards
 @warning_ignore("unused_signal")
-signal deck_clicked()
+signal deck_clicked(owner_player_id: int)
 
 # Errors
 @warning_ignore("unused_signal")

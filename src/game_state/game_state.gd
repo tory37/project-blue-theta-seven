@@ -13,25 +13,36 @@ const PLAYER_TWO: int = 1
 @export var base_income: int = 2
 @export var pass_turn_starting_ap: int = 3
 
+# Testing
+@export var test_deck: DeckData = DeckData.new()
+
+var local_player_id = PLAYER_ONE
 var active_player: int = PLAYER_ONE
 var ap_tracker: float = 0.0
-var player_resources: Dictionary = {
-	PLAYER_ONE: { "currency": 0 },
-	PLAYER_TWO: { "currency": 0 },
+var player_game_state: Dictionary[int, PlayerGameState] = {
+	PLAYER_ONE: PlayerGameState.new(),
+	PLAYER_TWO: PlayerGameState.new(),
 }
+var turn_state: StateMachine = StateMachine.new()
 
 
 func _ready() -> void:
-	pass
+	reset()
 
 
 func reset() -> void:
 	active_player = PLAYER_ONE
 	ap_tracker = 0.0
-	player_resources = {
-		PLAYER_ONE: { "currency": 0 },
-		PLAYER_TWO: { "currency": 0 },
+	player_game_state = {
+		PLAYER_ONE: PlayerGameState.new(),
+		PLAYER_TWO: PlayerGameState.new(),
 	}
+
+	player_game_state[PLAYER_ONE].deck = test_deck.cards.duplicate()
+	player_game_state[PLAYER_TWO].deck = test_deck.cards.duplicate()
+
+	turn_state = StateMachine.new()
+	turn_state.change_state(PhaseADrawCard.new())
 
 
 func _is_player_1() -> bool:
@@ -75,7 +86,7 @@ func _apply_spend_ap(amount: int) -> void:
 	SignalBus.ap_tracker_moved.emit(ap_tracker)
 	SignalBus.resources_updated.emit(
 		active_player,
-		player_resources[active_player]["currency"],
+		player_game_state[active_player].currency,
 	)
 
 	if _is_player_1():
@@ -90,10 +101,10 @@ func request_add_currency(player: int, amount: int) -> void:
 
 
 func _apply_add_currency(player: int, amount: int) -> void:
-	player_resources[player]["currency"] += amount
+	player_game_state[player].currency += amount
 	SignalBus.resources_updated.emit(
 		player,
-		player_resources[player]["currency"],
+		player_game_state[player].currency,
 	)
 
 
@@ -104,6 +115,7 @@ func request_switch_turn() -> void:
 func _apply_switch_turn() -> void:
 	active_player = (active_player + 1) % 2
 	SignalBus.player_switched.emit(active_player)
+	turn_state.change_state(PhaseADrawCard.new())
 	_apply_add_currency(active_player, base_income)
 
 

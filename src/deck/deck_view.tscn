@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dudx5da1opo8o"]
+
+[ext_resource type="Script" uid="uid://hj81nhnb5vn2" path="res://src/deck/deck_view.gd" id="1_lvqk7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lvqk7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_35q1q"]
+
+[node name="DeckView" type="StaticBody3D" unique_id=255350357]
+script = ExtResource("1_lvqk7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1737769523]
+mesh = SubResource("BoxMesh_lvqk7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=15141504]
+shape = SubResource("BoxShape3D_35q1q")

@@ -3,6 +3,8 @@ extends StaticBody3D
 signal hovered()
 signal unhovered()
 
+@export var _owner_player_id: int = GameState.PLAYER_ONE
+
 var _default_material: StandardMaterial3D
 var _hovered_material: StandardMaterial3D
 var _mesh_instance: MeshInstance3D
@@ -25,6 +27,17 @@ func set_highlighted(on: bool) -> void:
 		_mesh_instance.material_override = _hovered_material
 	else:
 		_mesh_instance.material_override = _default_material
+
+
+func _input_event(
+		_camera: Node,
+		event: InputEvent,
+		_position: Vector3,
+		_normal: Vector3,
+		_shape_idx: int,
+) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		SignalBus.deck_clicked.emit(_owner_player_id)
 
 
 func _on_mouse_enter() -> void:
