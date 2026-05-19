@@ -23,7 +23,7 @@ var player_game_state: Dictionary[int, PlayerGameState] = {
 	PLAYER_ONE: PlayerGameState.new(),
 	PLAYER_TWO: PlayerGameState.new(),
 }
-var turn_state: StateMachine = StateMachine.new()
+var player_turn_fsm: FiniteStateMachine = FiniteStateMachine.new()
 
 
 func _ready() -> void:
@@ -41,8 +41,8 @@ func reset() -> void:
 	player_game_state[PLAYER_ONE].deck = test_deck.cards.duplicate()
 	player_game_state[PLAYER_TWO].deck = test_deck.cards.duplicate()
 
-	turn_state = StateMachine.new()
-	turn_state.change_state(PhaseADrawCard.new())
+	player_turn_fsm = FiniteStateMachine.new()
+	player_turn_fsm.change_state(PhaseADrawCard.new())
 
 
 func _is_player_1() -> bool:
@@ -115,7 +115,7 @@ func request_switch_turn() -> void:
 func _apply_switch_turn() -> void:
 	active_player = (active_player + 1) % 2
 	SignalBus.player_switched.emit(active_player)
-	turn_state.change_state(PhaseADrawCard.new())
+	player_turn_fsm.change_state(PhaseADrawCard.new())
 	_apply_add_currency(active_player, base_income)
 
 
